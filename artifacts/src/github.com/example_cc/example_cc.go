@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"strconv"
+//	"strconv"
 //	"time"
 	"encoding/json"
 
@@ -27,13 +27,13 @@ type Product struct {
 
 
 
-//type AllBatches struct{
-//	AllBatches []string
-//}
+type AllBatches struct{
+	AllBatches []string
+}
 
-//type AllBatchesDetails struct{
-//	Batches []MilkProduct
-//}
+type AllBatchesDetails struct{
+	Batches []Product
+}
 
 //type TimeTracker struct{
 //	DispachedTime	string
@@ -47,31 +47,12 @@ type SimpleChaincode struct {
 
 func (t *SimpleChaincode) Init(stub shim.ChaincodeStubInterface) pb.Response {
 
-	_, args := stub.GetFunctionAndParameters()
-	var A, B string    // Entities
-	var Aval, Bval int // Asset holdings
+	fmt.Println("chaincode_custom Init")
 	var err error
-
-	// Initialize the chaincode
-	A = args[0]
-	Aval, err = strconv.Atoi(args[1])
-	if err != nil {
-		return shim.Error("Expecting integer value for asset holding")
-	}
-	B = args[2]
-	Bval, err = strconv.Atoi(args[3])
-	if err != nil {
-		return shim.Error("Expecting integer value for asset holding")
-	}
+	var batches AllBatches
 	
-
-	// Write the state to the ledger
-	err = stub.PutState(A, []byte(strconv.Itoa(Aval)))
-	if err != nil {
-		return shim.Error(err.Error())
-	}
-
-	err = stub.PutState(B, []byte(strconv.Itoa(Bval)))
+	batchesAsBytes,_ :=json.Marshal(batches)
+	err = stub.PutState("AllBatches", batchesAsBytes)
 	if err != nil {
 		return shim.Error(err.Error())
 	}
@@ -82,12 +63,16 @@ func (t *SimpleChaincode) Init(stub shim.ChaincodeStubInterface) pb.Response {
 func (t *SimpleChaincode) Invoke(stub shim.ChaincodeStubInterface) pb.Response {
 	fmt.Println("chaincode_custom Invoke")
 	function, args := stub.GetFunctionAndParameters()
+
 	if function == "addProduct"{
 		return t.addProduct(stub, args)
 	} 
-	if function == "move"{
-		return t.move(stub, args)
-	} 
+	if function == "transferProduct"{
+		return t.transferProduct(stub,args)
+	}
+	if function == "getAllManuFacturerBatches"{
+		return t.getAllManuFacturerBatches(stub, args)
+	}
 	if function == "query" {
 		// queries an entity state
 		return t.query(stub, args)
@@ -126,26 +111,38 @@ func (t *SimpleChaincode) addProduct(stub shim.ChaincodeStubInterface, args []st
 	if err != nil {
 		return shim.Error(err.Error())
 	}
+//update all batches to the array whose key is "AllBatches"
+	AllBatchesAsBytes, err := stub.GetState("AllBatches")
 
+	var allBatches AllBatches
+
+	err= json.Unmarshal(AllBatchesAsBytes, &allBatches)
+	allBatches.AllBatches=append(allBatches.AllBatches,product.Batchid)
+
+	allbatchesAsBytes,_ :=json.Marshal(allBatches)
+	err = stub.PutState("AllBatches", allbatchesAsBytes)
+	if err != nil {
+		return shim.Error(err.Error())
+	}
+//-----------------------------------------------------------
 
 	return shim.Success(nil)
 }
 
 //Change the Product by Batch ID
-func (t *SimpleChaincode) move(stub shim.ChaincodeStubInterface, args []string) pb.Response {
+func (t *SimpleChaincode) transferProduct(stub shim.ChaincodeStubInterface, args []string) pb.Response {
 	// must be an invoke
 	var err error
 	var product Product
 	bAsBytes, err := stub.GetState(args[0])
 
 	err = json.Unmarshal(bAsBytes, &product)
+
 	if err != nil {
 		return shim.Error(err.Error())
 	}
 	
-	product.Barcode=args[1]
-	product.Manfdate=args[2]
-	product.Expdate=args[3]
+	product.Ownership=args[1]
 	
 	//Commit updates batch to ledger
 	btAsBytes, _ := json.Marshal(product)
@@ -157,6 +154,42 @@ func (t *SimpleChaincode) move(stub shim.ChaincodeStubInterface, args []string) 
 
         return shim.Success(nil);
 }
+
+// ============================================================================================================================
+// Get All Batches Details for Transporter
+// ============================================================================================================================
+func (t *SimpleChaincode) getAllManuFacturerBatches(stub shim.ChaincodeStubInterface, args []string) pb.Response{
+	
+	//get the AllBatches index
+	var owner string
+	owner =args[0]
+	fmt.Printf("Value of Owner: %s", owner)
+	allBAsBytes,_ := stub.GetState("AllBatches")
+	
+	var res AllBatches
+	json.Unmarshal(allBAsBytes, &res)
+	
+	var rab AllBatchesDetails
+
+	for i := range res.AllBatches{
+
+		sbAsBytes,_ := stub.GetState(res.AllBatches[i])
+		
+		var sb Product
+		json.Unmarshal(sbAsBytes, &sb)
+
+	if(sb.Ownership == owner) {
+		fmt.Printf("Value of Owner-1: %s", sb.Ownership)
+		rab.Batches = append(rab.Batches,sb); 
+	}
+
+	}
+
+	rabAsBytes, _ := json.Marshal(rab)
+
+	return shim.Success(rabAsBytes)
+}
+
 
 //End of changing the Batch ID
 

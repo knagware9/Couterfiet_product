@@ -1,6 +1,6 @@
 {
-   "host":"localhost",
-   "port":"4000",
+   "host":"10.0.2.15",
+   "port":"4040",
    "jwt_expiretime": "3600000",
    "channelName":"mgrchannel",
    "CC_SRC_PATH":"../artifacts",

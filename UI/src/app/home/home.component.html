@@ -10,14 +10,15 @@
       </ul>
     </div>
   </nav>
-  <div class="text-center">
-    <h5 class="jumbotron">Product Register</h5>
-  </div>
-  <div class="row">
-    <div class="col-md-3">
-      <app-product></app-product>
+  <!-- <div class="text-center" style="margin-top:30px">
+    <h5 class="page-header">Product Register</h5>
+  </div> -->
+  <div class="row"  style="margin-top:30px">
+    <div class="col-md-4">
+      <app-product *ngIf="productService.isAddProduct"></app-product>
+      <app-product-transfer *ngIf="!productService.isAddProduct"></app-product-transfer>
     </div>
-    <div class="col-md-9">
+    <div class="col-md-7">
       <app-product-list></app-product-list>
     </div>
   </div>

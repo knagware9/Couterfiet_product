@@ -1,4 +1,5 @@
-﻿import { environment } from './../environments/environment';
+﻿import { ProductTransferComponent } from './home/manufacturer/product-transfer/product-transfer.component';
+import { environment } from './../environments/environment';
 import { ProductService } from './shared/product.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -6,7 +7,7 @@ import { NgModule } from '@angular/core';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { ToastrModule } from 'ngx-toastr';
-import { MatFormFieldModule, MatOption, MatOptionModule, MatSelectModule } from '@angular/material';
+import { MatFormFieldModule, MatOption, MatOptionModule, MatSelectModule, MatDatepickerModule, MatNativeDateModule } from '@angular/material';
 import { MatInputModule } from '@angular/material';
 
 
@@ -25,6 +26,8 @@ import { DistributerComponent, DialogOverviewExampleDialog } from './home/distri
 import { RetailerComponent } from './home/retailer/retailer.component';
 import { MatDialogModule } from '@angular/material';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { SampleComponent } from './user/sample/sample.component';
 
 
 @NgModule({
@@ -39,12 +42,15 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     ManufacturerComponent,
     DistributerComponent,
     RetailerComponent,
-    DialogOverviewExampleDialog
+    DialogOverviewExampleDialog,
+    SampleComponent,
+    ProductTransferComponent
   ],
   entryComponents: [DialogOverviewExampleDialog],
   imports: [
     BrowserModule,
     FormsModule,
+    HttpClientModule,
     ReactiveFormsModule,
     AngularFireModule.initializeApp(environment.FirebaseConfig),
     AngularFireDatabaseModule,
@@ -55,9 +61,10 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     MatFormFieldModule,
     MatInputModule,
     MatOptionModule,
-    MatSelectModule
-  ],
-  providers: [ProductService],
+    MatSelectModule,
+    MatDatepickerModule,
+    MatNativeDateModule],
+  providers: [ProductService,HttpClientModule],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

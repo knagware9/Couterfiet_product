@@ -2,8 +2,8 @@ export class Product {
     $key: string;
     batchNumber: string;
     barcode: string;
-    manufacturingDate: string;
-    expiryDate: string;
+    manufacturingDate: Date;
+    expiryDate: Date;
     productName: string;
     manufacturerName: string;
     ownership:string;

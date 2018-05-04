@@ -139,13 +139,14 @@ var invokeChaincode = function(peerNames, channelName, chaincodeName, fcn, args,
 		return 'Failed to send proposal due to error: ' + err.stack ? err.stack :
 			err;
 	}).then((response) => {
-		if (response.status === 'SUCCESS') {
-			logger.info('Successfully sent transaction to the orderer.');
-			return tx_id.getTransactionID();
-		} else {
-			logger.error('Failed to order the transaction. Error code: ' + response.status);
-			return 'Failed to order the transaction. Error code: ' + response.status;
-		}
+		return response;
+		// if (response.status === 'SUCCESS') {
+		// 	logger.info('Successfully sent transaction to the orderer.');
+		// 	return tx_id.getTransactionID();
+		// } else {
+		// 	logger.error('Failed to order the transaction. Error code: ' + response.status);
+		// 	return 'Failed to order the transaction. Error code: ' + response.status;
+		// }
 	}, (err) => {
 		logger.error('Failed to send transaction due to error: ' + err.stack ? err
 			.stack : err);

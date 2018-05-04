@@ -33,10 +33,10 @@ export class RetailerComponent implements OnInit {
   }
  
   onDelete(key: string) {
-    if (confirm('Are you sure to delete this record ?') == true) {
-      this.productService.deleteProduct(key);
-      this.tostr.warning("Deleted Successfully", "Employee register");
-    }
+    // if (confirm('Are you sure to delete this record ?') == true) {
+    //   this.productService.deleteProduct(key);
+    //   this.tostr.warning("Deleted Successfully", "Employee register");
+    // }
   }
 
 }

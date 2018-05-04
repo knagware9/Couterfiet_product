@@ -1,3 +1,4 @@
+import { SampleComponent } from './user/sample/sample.component';
 import { RetailerComponent } from './home/retailer/retailer.component';
 import { DistributerComponent } from './home/distributer/distributer.component';
 import { ManufacturerComponent } from './home/manufacturer/manufacturer.component';
@@ -25,6 +26,9 @@ export const appRoutes: Routes = [
     },
     {
         path: 'retailer', component: RetailerComponent
+    },
+    {
+        path: 'sample', component: SampleComponent
     },
 
     { path : '', redirectTo:'/login', pathMatch : 'full'}

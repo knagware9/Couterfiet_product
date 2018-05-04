@@ -4,18 +4,19 @@
     <table class="table table-sm table-hover">
       <thead>
         <tr class="table-danger">
-          <th scope="col">SR</th>
-          <th scope="col">Name</th>
-          <th scope="col">Expiry Date</th>
-          <th scope="col">Price</th>
+          <th scope="col">Batch ID</th>
+          <th scope="col">Product Name</th>
+
+          <!-- <th scope="col">Price</th> -->
           <th scope="col">Update/Delete</th>
+          <th scope="col">Product Transfer</th>
         </tr>
       </thead>
       <tr class="table-success" *ngFor="let product of productList; let i = index">
-        <th scope="row">{{i+1}}</th>
-        <td>{{ product.productName}}</td>
-        <td>{{ product.expiryDate}}</td>
-        <td>{{ product.price}}</td>
+        <!-- <th scope="row">{{i+1}}</th> -->
+        <td>{{ product.batchNumber}} </td>
+        <!-- <td>{{product.manufacturingDate | date:'shortDate'}} </td> -->
+        <td>{{ product.productName}} </td>
 
         <td>
           <a class="btn" (click)="onEdit(product)">
@@ -24,18 +25,49 @@
           <a class="btn" (click)="onDelete(product.$key)">
             <i class="fa fa-trash-o"></i>
           </a>
-         
-          <mat-form-field>
-            <mat-select placeholder="Transfer To">
-              <mat-option  *ngFor="let option of options" [value]="option">
+        </td>
+        <!-- <td> -->
+
+          <!-- <mat-form-field>
+            <mat-select [(value)]="selected">
+              <mat-option *ngFor="let option of options" [value]="option">
+                {{ option }}
+              </mat-option>
+            </mat-select> 
+          </mat-form-field> -->
+<!-- 
+          <mat-select placeholder="Panel color" [(value)]="selected">
+              <mat-option *ngFor="let option of options" [value]="option.id">
+                {{ option.name }}
+              </mat-option>
+            </mat-select> -->
+
+          <!-- <mat-form-field>
+            <mat-select onItemSelected($event) [(value)]="selected">
+              <mat-option>Select a Distributer </mat-option>
+              <mat-option value="Distributer_1">Distributer_1</mat-option>
+              <mat-option value="Distributer_2">Distributer_2</mat-option>
+              <mat-option value="Distributer_3">Distributer_3</mat-option>
+            </mat-select>
+            <! <mat-error>  
+              <span *ngIf="!regiForm.get('Selection').valid && regiForm.get('Blog').touched">Please select any item !!!</span>  
+          </mat-error>  --> 
+          <!-- </mat-form-field>  -->
+        <!-- </td> -->
+        <td>
+          <!-- <mat-form-field>
+            <mat-select placeholder="Transfer To" >
+              <mat-option *ngFor="let option of options" [value]="option" #val="ngModel" [(ngModel)]="selectedItem">
                 {{ option }}
               </mat-option>
             </mat-select>
-          </mat-form-field>
-          <a class="btn" (click)="onTransfer(product,product.$key)">
-              <i class="fa fa-paper-plane" aria-hidden="true"></i>
-            </a>
+          </mat-form-field> -->
 
+
+
+          <a class="btn" (click)="onTransfer(product,product.$key)">
+            <i class="fa fa-paper-plane" aria-hidden="true"></i>
+          </a>
         </td>
       </tr>
     </table>

@@ -52,19 +52,19 @@ export class DistributerComponent implements OnInit {
   }
 
   onDelete(key: string) {
-    if (confirm('Are you sure to delete this record ?') == true) {
-      this.productService.deleteProduct(key);
-      this.tostr.warning("Deleted Successfully", "Employee register");
-    }
+    // if (confirm('Are you sure to delete this record ?') == true) {
+    //   this.productService.deleteProduct(key);
+    //   this.tostr.warning("Deleted Successfully", "Employee register");
+    // }
   }
 
   onTransfer(pro: Product,key: string) {
-    if (confirm('Are you sure to transfer this record ?') == true) {
-      this.productService.transferProduct(pro,"retailer");
-      this.productService.deleteDistributerProduct(key);
+    // if (confirm('Are you sure to transfer this record ?') == true) {
+    //   this.productService.transferProduct(pro,"retailer");
+    //   this.productService.deleteDistributerProduct(key);
       
-      this.tostr.warning("Transfered Successfully", "Product Transfer");
-    }
+    //   this.tostr.warning("Transfered Successfully", "Product Transfer");
+    // }
   }
 
 }
