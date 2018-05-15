@@ -1,3 +1,4 @@
+import { HistoryComponent } from './home/history/history.component';
 import { SampleComponent } from './user/sample/sample.component';
 import { RetailerComponent } from './home/retailer/retailer.component';
 import { DistributerComponent } from './home/distributer/distributer.component';
@@ -29,6 +30,9 @@ export const appRoutes: Routes = [
     },
     {
         path: 'sample', component: SampleComponent
+    },
+    {
+        path: 'history', component: HistoryComponent
     },
 
     { path : '', redirectTo:'/login', pathMatch : 'full'}

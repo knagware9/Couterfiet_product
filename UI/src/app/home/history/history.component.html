@@ -1,4 +1,4 @@
-<h6 class="text-center">Product List</h6>
+<h6 class="text-center">Product History</h6>
 <div class="card blue-grey lighten-5">
   <div class="card-content">
     <table class="table table-sm table-hover">
@@ -8,8 +8,10 @@
           <th scope="col">Product Name</th>
 
           <!-- <th scope="col">Price</th> -->
-          <th scope="col">Update/Delete</th>
-          <th scope="col">Product Transfer</th>
+          <th scope="col">Ownership</th>
+          <!-- <th scope="col">Product Transfer</th> -->
+          <th scope="col">Queue</th>
+          <th scope="col">Comments</th>
         </tr>
       </thead>
       <tr class="table-success" *ngFor="let product of productList; let i = index">
@@ -18,11 +20,17 @@
         <!-- <td>{{product.manufacturingDate | date:'shortDate'}} </td> -->
         <td>{{ product.productName}} </td>
 
-        <td>
+        <td>{{ product.ownership}} </td>
+
+        <td>{{ product.status}} </td>
+
+        <td>{{ product.comment}} </td>
+
+        <!-- <td>
           <a class="btn" (click)="onEdit(product)">
             <i class="fa fa-pencil-square-o"></i>
           </a>
-          <a class="btn" (click)="onDelete(product)">
+          <a class="btn" (click)="onDelete(product.$key)">
             <i class="fa fa-trash-o"></i>
           </a>
         </td>
@@ -30,7 +38,7 @@
           <a class="btn" (click)="onTransfer(product,product.$key)">
             <i class="fa fa-paper-plane" aria-hidden="true"></i>
           </a>
-        </td>
+        </td> -->
       </tr>
     </table>
   </div>

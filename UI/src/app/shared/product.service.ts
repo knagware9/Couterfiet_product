@@ -18,6 +18,9 @@ export class ProductService {
   productList3: AngularFireList<any>;
   selectedProduct: Product = new Product();
   isAddProduct=true;
+
+  productHistory:string='';
+
   constructor(private firebase: AngularFireDatabase, private http: HttpClient) {
 
   }
@@ -51,14 +54,23 @@ export class ProductService {
 
   }
 
+  private history_url:string='http://9.193.16.48:4000/channels/mgrchannel/chaincodes/mycc?peer=peer1&fcn=getproducthistory&args=%5B%22'
+  getHistoryForProduct(batchId:string){
+    console.log(localStorage.getItem('accessToken'));
+  
+    var headerOption = new Headers({ 'Content-Type': 'application/json' });
+    return this.http.get(this.history_url+batchId+'%22%5D',{headers: new HttpHeaders({'Authorization':'Bearer '+localStorage.getItem('accessToken')})});
+
+  }
+
   private add_url:string='http://9.193.16.48:4000/channels/mgrchannel/chaincodes/mycc'// 'http://9.193.16.48:4000/channels/mgrchannel/chaincodes/mycc'////'
   addProduct(productData){
    var dataarray:any;
    var manudate=(this.selectedProduct.manufacturingDate.getTime()).toString();  
    var expdate=(this.selectedProduct.expiryDate.getTime()).toString();
    dataarray= [productData.batchNumber,productData.barcode,manudate,
-    expdate,productData.productName,productData.manufacturerName,productData.ownership,
-    productData.quantity,productData.weight,productData.temperature,productData.price,productData.comment];
+    expdate,productData.productName,productData.manufacturerName,this.selectedProduct.ownership,
+    productData.quantity,productData.weight,productData.temperature,productData.price,productData.comment, this.selectedProduct.status];
 
    console.log("This is dataarray"+dataarray);
 
@@ -75,7 +87,7 @@ export class ProductService {
     var batch=productData.batchNumber;
     var manudate=(this.selectedProduct.manufacturingDate.getTime()).toString();  
     var expdate=(this.selectedProduct.expiryDate.getTime()).toString();
-    dataarray= [batch,type];
+    dataarray= [batch,type,this.selectedProduct.status];
  
     console.log("This is dataarray"+dataarray);
  

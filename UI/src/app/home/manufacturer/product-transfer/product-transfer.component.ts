@@ -21,6 +21,8 @@ export class ProductTransferComponent implements OnInit {
     //   console.log("Manufacturer-----------------------");
     //   this.options = ["Manufacturer", "Retailer_1", "Retailer_2","Retailer_2"];
     // }
+
+    
   }
 
   
@@ -32,7 +34,7 @@ export class ProductTransferComponent implements OnInit {
 
   }
 
- options = (localStorage.getItem('password') == "org1") ?  this.options = ["Distributer_1", "Distributer_2", "Distributer_3"] : this.options = ["Manufacturer", "Retailer_1", "Retailer_2","Retailer_2"];
+ options = (localStorage.getItem('password') == "org1") ?  this.options = ["Distributer_Pune"] : this.options = ["Manufacturer", "Retailer_Hinjewadi", "Retailer_Aundh","Retailer_Hadapsar"];
  
   ngOnInit() {
     console.log("This is password : " + localStorage.getItem('password'));
@@ -45,7 +47,7 @@ export class ProductTransferComponent implements OnInit {
   // }
 
   onSubmit(productForm: NgForm) {
-
+    this.productService.selectedProduct.status= this.selected +' '+'Queue';
     this.productService.isAddProduct=false;
 
     // if (localStorage.getItem('owner') === "M") {
@@ -69,57 +71,6 @@ export class ProductTransferComponent implements OnInit {
           // console.log("value of e"+ JSON.stringify(e));
           console.log("error occured" + JSON.stringify(err));
         });
-
-    // }
-    //  else if (localStorage.getItem('owner') === "D") {
-    //   this.productService.transferProduct(pro, "Retailer")
-    //     .subscribe(data => {
-    //       console.log("This is response data" + data);
-    //       this.tostr.success('Added Succcessfully', 'Product Added');
-    //       // console.log("value of e"+ JSON.stringify(e));
-    //     }, err => {
-    //       if (err.status == 200) {
-    //         this.tostr.success('Added Succcessfully', 'Product Added');
-    //         console.log("Trx ID is " + err.error.text);
-    //         //this.listComp.fetchData();
-    //         // this.listComp.ngOnInit();
-    //         this.router.navigate(['/home']);
-
-    //       }
-
-    //       // console.log("value of e"+ JSON.stringify(e));
-    //       console.log("error occured" + JSON.stringify(err));
-    //     });
-
-    // } else if (localStorage.getItem('owner') === "R") {
-    //   this.productService.transferProduct(pro, "R")
-    //     .subscribe(data => {
-    //       console.log("This is response data" + data);
-    //       this.tostr.success('Added Succcessfully', 'Product Added');
-    //       // console.log("value of e"+ JSON.stringify(e));
-    //     }, err => {
-    //       if (err.status == 200) {
-    //         this.tostr.success('Added Succcessfully', 'Product Added');
-    //         console.log("Trx ID is " + err.error.text);
-    //         //this.listComp.fetchData();
-    //         // this.listComp.ngOnInit();
-    //         this.router.navigate(['/home']);
-
-    //       }
-
-    //       // console.log("value of e"+ JSON.stringify(e));
-    //       console.log("error occured" + JSON.stringify(err));
-    //     });
-
-    // }
-
-
-    // if (confirm('Are you sure to transfer this record ?') == true) {
-    //   this.productService.transferProduct(pro, "distributer");
-    //   this.productService.deleteProduct(key);
-
-    //   this.tostr.warning("Transfered Successfully", "Product Transfer");
-    // }
   }
 
 

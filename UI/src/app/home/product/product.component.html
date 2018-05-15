@@ -73,7 +73,13 @@
           <div class="form-group">
             <!-- <label>Ownership</label> -->
             <input class="form-control" name="ownership" #ownership="ngModel" [(ngModel)]="productService.selectedProduct.ownership"
-              placeholder="Ownership">
+              placeholder="Manufacturer">
+          </div>
+
+          <div class="form-group">
+            <!-- <label>BatchNumber</label> -->
+            <input class="form-control" name="status" #status="ngModel" [(ngModel)]="productService.selectedProduct.status"
+              placeholder="status">
           </div>
 
           <!-- <form>

@@ -38,6 +38,14 @@
             <input class="form-control" name="batchNumber" #batchNumber="ngModel" [(ngModel)]="productService.selectedProduct.batchNumber"
               placeholder="Batch Number">
           </div>
+
+          <div class="form-group">
+            <!-- <label>BatchNumber</label> -->
+            <input class="form-control" name="status" #status="ngModel" [(ngModel)]="productService.selectedProduct.status"
+              placeholder="status">
+          </div>
+
+
           <!-- <div class="form-group"> -->
             <!-- <label>Ownership</label> -->
             <!-- <input class="form-control" name="ownership" #ownership="ngModel" [(ngModel)]="productService.selectedProduct.ownership" -->

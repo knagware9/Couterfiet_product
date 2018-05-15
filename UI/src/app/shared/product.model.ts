@@ -12,4 +12,5 @@ export class Product {
     temperature: string;
     price:string;
     comment:string;
+    status:string;
 }

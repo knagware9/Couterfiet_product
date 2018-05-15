@@ -26,6 +26,8 @@ export class ProductComponent implements OnInit {
      date:any;
   ngOnInit() {
     this.resetForm();
+    this.productService.selectedProduct.ownership="Manufacturer"
+    this.productService.selectedProduct.status="In Manufacturer Queue"
   }
 
   findProduct(productForm){
@@ -104,7 +106,8 @@ export class ProductComponent implements OnInit {
       weight: '',
       temperature: '',
       price: '',
-      comment: ''
+      comment: '',
+      status:''
     }
   }
 }

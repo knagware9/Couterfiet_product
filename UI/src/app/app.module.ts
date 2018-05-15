@@ -1,4 +1,5 @@
-﻿import { ProductTransferComponent } from './home/manufacturer/product-transfer/product-transfer.component';
+﻿import { HistoryComponent } from './home/history/history.component';
+import { ProductTransferComponent } from './home/manufacturer/product-transfer/product-transfer.component';
 import { environment } from './../environments/environment';
 import { ProductService } from './shared/product.service';
 import { BrowserModule } from '@angular/platform-browser';
@@ -44,7 +45,8 @@ import { SampleComponent } from './user/sample/sample.component';
     RetailerComponent,
     DialogOverviewExampleDialog,
     SampleComponent,
-    ProductTransferComponent
+    ProductTransferComponent,
+    HistoryComponent
   ],
   entryComponents: [DialogOverviewExampleDialog],
   imports: [
