@@ -1,0 +1,95 @@
+<h2 mat-dialog-title>Add Product</h2>
+<mat-dialog-content>
+  <div class="example-container">
+
+    <!-- <mat-form-field>
+      <mat-select placeholder="Avatar" [(ngModel)]="user.avatar">
+        <mat-select-trigger>
+          <mat-icon svgIcon="{{user.avatar}}"></mat-icon> {{ user.avatar }}
+        </mat-select-trigger>
+        <mat-option *ngFor="let avatar of avatars" [value]="avatar">
+          <mat-icon svgIcon="{{avatar}}"></mat-icon> {{ avatar }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field> -->
+
+    <!-- <mat-form-field>
+      <input matInput placeholder="Name" [formControl]="name" [(ngModel)]="owner" required>
+      <mat-error *ngIf="name.invalid">{{getErrorMessage()}}</mat-error>
+    </mat-form-field> -->
+
+    <mat-form-field>
+      <input matInput placeholder="Product Name" [formControl]="productName" [(ngModel)]="product.productName" required>
+      <mat-error *ngIf="productName.invalid">{{getErrorMessageForProductName()}}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput placeholder="Batch Number" [(ngModel)]="product.batchNumber" required>
+      <!-- <mat-error *ngIf="batch.invalid">{{getErrorMessage()}}</mat-error> -->
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput placeholder="Barcode" [(ngModel)]="product.barcode" required>
+      <!-- <mat-error *ngIf="name.invalid">{{getErrorMessage()}}</mat-error> -->
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput placeholder="Manufacturer Name" [(ngModel)]="product.manufacturerName" required>
+      <!-- <mat-error *ngIf="name.invalid">{{getErrorMessage()}}</mat-error> -->
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput [matDatepicker]="picker" placeholder="Manufacturing Date" [(ngModel)]="product.manufacturingDate">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput [matDatepicker]="picker2" placeholder="Expiry Date" [(ngModel)]="product.expiryDate">
+      <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+      <mat-datepicker #picker2></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput name="ownership" #ownership="ngModel" [(ngModel)]="product.ownership" placeholder="Ownership" disabled required>
+      <!-- <mat-error *ngIf="name.invalid">{{getErrorMessage()}}</mat-error> -->
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput name="status" placeholder="Status" #status="ngModel" [(ngModel)]="product.status" disabled required>
+      <!-- <mat-error *ngIf="name.status">{{getErrorMessage()}}</mat-error> -->
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput placeholder="Quantity" [(ngModel)]="product.quantity" required>
+      <!-- <mat-error *ngIf="manufacturerName.invalid">{{getErrorMessage()}}</mat-error> -->
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput placeholder="Weight" [(ngModel)]="product.weight" required>
+      <!-- <mat-error *ngIf="manufacturerName.invalid">{{getErrorMessage()}}</mat-error> -->
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Temperature" [(ngModel)]="product.temperature" required>
+      <!-- <mat-error *ngIf="manufacturerName.invalid">{{getErrorMessage()}}</mat-error> -->
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Price" [(ngModel)]="product.price" required>
+      <!-- <mat-error *ngIf="manufacturerName.invalid">{{getErrorMessage()}}</mat-error> -->
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Comments" [(ngModel)]="product.comment" required>
+      <!-- <mat-error *ngIf="manufacturerName.invalid">{{getErrorMessage()}}</mat-error> -->
+    </mat-form-field>
+
+  </div>
+
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button color="primary" (click)="save()">
+    <mat-icon>save</mat-icon> Save
+  </button>
+  <button mat-button color="primary" (click)="dismiss()">
+    <mat-icon>cancel</mat-icon> Cancel
+  </button>
+</mat-dialog-actions>

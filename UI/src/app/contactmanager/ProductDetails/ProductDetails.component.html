@@ -1,0 +1,50 @@
+<h2 mat-dialog-title>Product Details</h2>
+<mat-dialog-content>
+
+  <div class="example-container">
+    <!-- <p>Product Name : {{product.productName}}</p>
+    <p>Batch Number : {{product.batchNumber}}</p>
+    <p>Barcode : {{product.barcode}}</p>
+    <p>Manufacturer Name : {{product.manufacturerName}}</p>
+    <p>Manufacturing Date : {{product.manufacturingDate | date:'yyyy-MM-dd'}}</p>
+    <p>Expiry Date : {{product.expiryDate | date:'yyyy-MM-dd'}}</p>
+    <p>Ownership : {{product.ownership}}</p>
+    <p>Status : {{product.status}}</p>
+    <p>Quantity : {{product.quantity}}</p>
+    <p>Weight : {{product.weight}}</p>
+    <p>Temperature : {{product.temperature}}</p>
+    <p>Price : {{product.price}}</p>
+    <p>Comments : {{product.comment}}</p> -->
+
+    <mat-list>
+      <mat-list-item> Product Name : {{product.productName}} </mat-list-item> <mat-divider ></mat-divider>
+      <mat-list-item> Batch Number : {{product.batchNumber}} </mat-list-item> <mat-divider></mat-divider>
+      <mat-list-item> Barcode : {{product.barcode}} </mat-list-item> <mat-divider></mat-divider>
+      <mat-list-item> Manufacturer Name : {{product.manufacturerName}} </mat-list-item> <mat-divider></mat-divider>
+      <mat-list-item> Manufacturing Date : {{product.manufacturingDate | date:'yyyy-MM-dd'}} </mat-list-item> <mat-divider></mat-divider>
+      <mat-list-item> Expiry Date : {{product.expiryDate | date:'yyyy-MM-dd'}} </mat-list-item> <mat-divider></mat-divider>
+      <mat-list-item> Ownership : {{product.ownership}} </mat-list-item> <mat-divider></mat-divider>
+      <mat-list-item> Status : {{product.status}} </mat-list-item> <mat-divider></mat-divider>
+      <mat-list-item> Quantity : {{product.quantity}} </mat-list-item> <mat-divider></mat-divider>
+      <mat-list-item> Weight : {{product.weight}} </mat-list-item> <mat-divider></mat-divider>
+      <mat-list-item> Temperature : {{product.temperature}} </mat-list-item> <mat-divider></mat-divider>
+      <mat-list-item> Price : {{product.price}} </mat-list-item> <mat-divider></mat-divider>
+      <mat-list-item> Comments : {{product.comment}} </mat-list-item> <mat-divider></mat-divider>
+
+    </mat-list>
+
+  </div>
+
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button color="primary" (click)="dismiss()">
+    <mat-icon>save</mat-icon> OK
+  </button>
+  <!-- <button mat-button color="primary" (click)="approve('2')">
+    <mat-icon>cancel</mat-icon> Reject
+  </button>
+  <button mat-button color="primary" (click)="dismiss()">
+    <mat-icon>cancel</mat-icon> Cancel
+  </button> -->
+
+</mat-dialog-actions>

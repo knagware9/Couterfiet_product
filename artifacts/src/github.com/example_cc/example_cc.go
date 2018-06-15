@@ -1,10 +1,12 @@
 package main
 
 import (
-	"fmt"
-//	"strconv"
-//	"time"
+	"bytes"
 	"encoding/json"
+	"fmt"
+	"strconv"
+//	"strings"
+	"time"
 
 	"github.com/hyperledger/fabric/core/chaincode/shim"
 	pb "github.com/hyperledger/fabric/protos/peer"
@@ -23,6 +25,7 @@ type Product struct {
 	Temp          string `json:"temp"`     
 	Price         string `json:"price"`
 	Comment       string `json:"comment"`
+	Status       string `json:"status"`
 }
 
 
@@ -77,6 +80,11 @@ func (t *SimpleChaincode) Invoke(stub shim.ChaincodeStubInterface) pb.Response {
 		// queries an entity state
 		return t.query(stub, args)
 	}
+	if function == "getproducthistory" {
+		// queries an entity state
+		fmt.Println("chaincode getproducthistory")
+		return t.getproducthistory(stub, args)
+	}
 
 	return shim.Error("Invalid invoke function name.")
 }
@@ -105,6 +113,7 @@ func (t *SimpleChaincode) addProduct(stub shim.ChaincodeStubInterface, args []st
 	product.Temp=args[9]
 	product.Price =args[10]
 	product.Comment=args[11]
+	product.Status=args[12]
 
 	productAsBytes, _ := json.Marshal(product)
 	err = stub.PutState(product.Batchid, productAsBytes)
@@ -143,6 +152,7 @@ func (t *SimpleChaincode) transferProduct(stub shim.ChaincodeStubInterface, args
 	}
 	
 	product.Ownership=args[1]
+	product.Status=args[2]
 	
 	//Commit updates batch to ledger
 	btAsBytes, _ := json.Marshal(product)
@@ -222,7 +232,77 @@ func (t *SimpleChaincode) query(stub shim.ChaincodeStubInterface, args []string)
 	return shim.Success(Avalbytes)
 }
 
+//Query to get the history of the BAtchID
 
+func (t *SimpleChaincode) getproducthistory(stub shim.ChaincodeStubInterface, args []string) pb.Response {
+
+	fmt.Printf("In getproducthistory Function")
+
+	if len(args) < 1 {
+		fmt.Printf("In getproducthistory Error Function")
+		return shim.Error("Incorrect number of arguments. Expecting 1")
+	}
+
+	Batchid := args[0]
+
+	fmt.Printf("- start getHistoryForMarble: %s\n", Batchid)
+
+	resultsIterator, err := stub.GetHistoryForKey(Batchid)
+
+	if err != nil {
+		return shim.Error(err.Error())
+	}
+	defer resultsIterator.Close()
+
+	// buffer is a JSON array containing historic values for the marble
+	var buffer bytes.Buffer
+
+	buffer.WriteString("[")
+
+	bArrayMemberAlreadyWritten := false
+	for resultsIterator.HasNext() {
+		response, err := resultsIterator.Next()
+		if err != nil {
+			return shim.Error(err.Error())
+		}
+		// Add a comma before array members, suppress it for the first array member
+		if bArrayMemberAlreadyWritten == true {
+			buffer.WriteString(",")
+		}
+		buffer.WriteString("{\"TxId\":")
+		buffer.WriteString("\"")
+		buffer.WriteString(response.TxId)
+		buffer.WriteString("\"")
+
+		buffer.WriteString(", \"Value\":")
+		// if it was a delete operation on given key, then we need to set the
+		//corresponding value null. Else, we will write the response.Value
+		//as-is (as the Value itself a JSON marble)
+		if response.IsDelete {
+			buffer.WriteString("null")
+		} else {
+			buffer.WriteString(string(response.Value))
+		}
+
+		buffer.WriteString(", \"Timestamp\":")
+		buffer.WriteString("\"")
+		buffer.WriteString(time.Unix(response.Timestamp.Seconds, int64(response.Timestamp.Nanos)).String())
+		buffer.WriteString("\"")
+
+		buffer.WriteString(", \"IsDelete\":")
+		buffer.WriteString("\"")
+		buffer.WriteString(strconv.FormatBool(response.IsDelete))
+		buffer.WriteString("\"")
+
+		buffer.WriteString("}")
+		bArrayMemberAlreadyWritten = true
+	}
+	buffer.WriteString("]")
+
+	fmt.Printf("- getHistoryForMarble returning:\n%s\n", buffer.String())
+
+return shim.Success(buffer.Bytes())
+}
 
 // ============================================================================================================================
 

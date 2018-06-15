@@ -14,7 +14,7 @@
  *  limitations under the License.
  */
 'use strict';
-var log4js = require('log4js');
+var log4js = require('log4js'); 
 var logger = log4js.getLogger('Helper');
 logger.setLevel('DEBUG');
 
@@ -171,7 +171,7 @@ var getAdminUser = function(userOrg) {
 		client._userContext = null;
 		return client.getUserContext(username, true).then((user) => {
 			if (user && user.isEnrolled()) {
-				logger.info('Successfully loaded member from persistence-1');
+				logger.info('Successfully loaded member from persistence');
 				return user;
 			} else {
 				let caClient = caClients[userOrg];
@@ -210,7 +210,7 @@ var getRegisteredUsers = function(username, userOrg, isJson) {
 		client._userContext = null;
 		return client.getUserContext(username, true).then((user) => {
 			if (user && user.isEnrolled()) {
-				logger.info('Successfully loaded member from persistence-Registereduser');
+				logger.info('Successfully loaded member from persistence');
 				return user;
 			} else {
 				let caClient = caClients[userOrg];
